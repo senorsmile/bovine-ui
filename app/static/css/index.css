@@ -1,0 +1,19 @@
+/* custom css */
+
+body { padding-top: 70px; }
+
+/* fix for using badge-* in bootstrap 3 */
+.label-as-badge { border-radius: 1em; }
+
+/* fix for using label-pill (badge replacements) in bootstrap 4 */
+.label-pill {
+  padding-right: .6em;
+  padding-left: .6em;
+  border-radius: 10rem;
+}
+
+table {
+  word-wrap: break-word;
+  word-break: break-word;
+  table-layout: fixed;
+}

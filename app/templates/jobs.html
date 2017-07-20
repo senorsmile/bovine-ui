@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+      <h2>Job Summary</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Job #</th>
+            <th>Nodes (limit)</th>
+            <th>Length</th>
+            <th>Started</th>
+            <th>Finished</th>
+            <th>Progress</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody id="jobs_table">
+          <tr>
+            <td >
+              <a href="#">
+                fetching jobs... 
+              </a>
+            </td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>
+              <div class="text-xs-center" id="progress53">0%</div>
+                <progress class="progress" value="0" max="100" aria-describedby="progress53"></progress>
+              </div>
+              </div>
+            </td>
+            <td>
+              <p>
+                <!-- badge-success green    -->
+                <!-- badge-warning yellow   -->
+                <!-- badge-danger  red      -->
+                <!-- badge-default grey     -->
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="OK">         0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="CHANGED">    0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="UNREACHABLE">0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="FAILED">     0</span>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+{% endblock %}
+
+{% block content2 %}
+    <script>
+      //document.getElementById("jobs_table").innerHTML = "loading...";
+
+      var xhttp = new XMLHttpRequest();
+
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+          var jsontext = JSON.parse(this.responseText);
+          var outtext = '';
+          last_job_num = jsontext["last_job_num"];
+
+
+          //for (i in jsontext["jobs"]) {
+          for (var j = last_job_num; j > last_job_num - 5; j--) {
+            i = String(j);
+            outtext += "<tr>" +
+                '<td>' + i + '</td>' + 
+
+                '<td>' + jsontext['jobs'][i]['nodes']      +  '</td>' + 
+
+                '<td>' + jsontext['jobs'][i]['job_length'] +  '</td>' + 
+
+                '<td>' + jsontext['jobs'][i]['started']    +  '</td>' + 
+
+                '<td>' + 
+                  jsontext['jobs'][i]['finished'] +    
+                '</td>' + 
+
+                '<td>' + 
+                  '<div class="text-xs-center" id="progress53">' + 
+                    jsontext['jobs'][i]['job_percent'] + 
+                  '%</div>' +
+                  '<progress class="progress" value="' + 
+                    jsontext['jobs'][i]['job_percent'] + 
+                  '" max="100" aria-describedby="progress53"></progress>' + 
+                  '</div>' +
+                '</td>' + 
+
+                "<td>" +  
+                  '<span class="badge badge-pill badge-success" data-toggle="tooltip" data-placement="top" title="OK">'           + jsontext["jobs"][i]["summary"]["ok"]          + '</span>' +
+                  '<span class="badge badge-pill badge-warning" data-toggle="tooltip"                      title="CHANGED">'      + jsontext["jobs"][i]["summary"]["changed"]     + '</span>' +
+                  '<span class="badge badge-pill badge-danger"  data-toggle="tooltip" data-placement="top" title="UNREACHABLE">'  + jsontext["jobs"][i]["summary"]["unreachable"] + '</span>' +
+                  '<span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="FAILED">'       + jsontext["jobs"][i]["summary"]["failed"]      + '</span>' +
+                "</td>" + 
+
+              "</tr>";
+
+          }
+
+          //outtext = jsontext['jobs'][i];
+
+          document.getElementById("jobs_table").innerHTML = outtext;
+        }
+      };
+
+      xhttp.open("GET", "api/get_jobs", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send("fname=Henry&lname=Ford");
+    </script>
+{% endblock %}

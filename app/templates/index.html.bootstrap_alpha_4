@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+      <h2>Job Summary</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Job #</th>
+            <th>Nodes (limit)</th>
+            <th>Length</th>
+            <th>Started</th>
+            <th>Finished</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td >
+              <a href="#">
+                53
+              </a>
+            </td>
+            <td>web_servers</td>
+            <td>02:12...</td>
+            <td>2016/08/31 08:51:00</td>
+            <td>
+              <div class="text-xs-center" id="progress53">75%</div>
+                <progress class="progress" value="75" max="100" aria-describedby="progress53"></progress>
+              </div>
+              </div>
+            </td>
+            <td>
+              <p>
+                <!-- <span class="tag tag-danger">Changed/Unreachable</span> -->
+                <span class="tag tag-pill tag-success" data-toggle="tooltip" data-placement="top" title="OK">32</span>
+                <span class="tag tag-pill tag-default" data-toggle="tooltip" data-placement="top" title="CHANGED">0</span>
+                <span class="tag tag-pill tag-default" data-toggle="tooltip" data-placement="top" title="UNREACHABLE">0</span>
+                <span class="tag tag-pill tag-default" data-toggle="tooltip" data-placement="top" title="FAILED">0</span>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td >
+              <a href="#">
+                52
+              </a>
+            </td>
+            <td>
+              db_servers
+            </td>
+            <td>
+              01:13
+            </td>
+            <td>
+              2016/08/31 08:41:00
+            </td>
+            <td>
+              2016/08/31 08:42:13
+            </td>
+            <td>
+              <p>
+                <!-- <span class="tag tag-danger">Changed/Unreachable</span> -->
+                <span class="tag tag-pill tag-success" data-toggle="tooltip" data-placement="top" title="OK">52</span>
+                <span class="tag tag-pill tag-warning" data-toggle="tooltip" data-placement="top" title="CHANGED">5</span>
+                <span class="tag tag-pill tag-danger" data-toggle="tooltip" data-placement="top" title="UNREACHABLE">1</span>
+                <span class="tag tag-pill tag-danger" data-toggle="tooltip" data-placement="top" title="FAILED">1</span>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+{% endblock %}
