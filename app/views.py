@@ -7,7 +7,9 @@ import json
 # vars
 #-------------------------
 stash = {
-    'app_ver': '0.0.17',
+    'app_ver': '0.0.19',
+    'default_start_job_num': -10,
+    'default_end_job_num': -1, 
 }
 
 
@@ -48,6 +50,8 @@ def roles():
 def jobs():
     return render_template(
         'jobs.html',
+        start_job_num = request.args.get('start_job_num', default=stash["default_start_job_num"], type=int),
+        end_job_num   = request.args.get('end_job_num',   default=stash["default_end_job_num"], type=int),
         stash = stash,
     )
 
@@ -66,8 +70,10 @@ def api():
 @app.route('/api/get_jobs')
 def get_jobs():
     return json.dumps(
-	load_jobs.load_jobs(
-            requested_num=5
+        load_jobs.load_jobs(
+            start_job_num = request.args.get('start_job_num', default=stash["default_start_job_num"],    type=int),
+            end_job_num   = request.args.get('end_job_num',   default=stash["default_end_job_num"],    type=int),
+            get_num_jobs  = request.args.get('get_num_jobs',   default = False, type=bool),
         ),
         indent=4,
     )
