@@ -78,11 +78,18 @@
             function(response) {
               last_job_num  = parseInt(response.num_jobs);
               // convert negative job_num requests to their real positive forms
-              document.getElementById("debug").innerHTML =  'last_job_num = ' + last_job_num;
               start_job_num = parseInt({{ start_job_num }});
               end_job_num   = parseInt({{ end_job_num }});
-              if (start_job_num < 0) start_job_num = last_job_num + start_job_num + 1;
               if (end_job_num < 0) end_job_num = last_job_num + end_job_num + 1;
+              if (start_job_num < 0) start_job_num = last_job_num + start_job_num + 1;
+              if (start_job_num < 1) start_job_num = 1; // don't go lower than absolute first job
+              document.getElementById("debug").innerHTML =  ''
+                  + 'last_job_num = ' + last_job_num
+                  + '<br>'
+                  + 'start_job_num = ' + start_job_num
+                  + '<br>'
+                  + 'end_job_num = ' + end_job_num
+              ;
 
               let url2 = 'api/get_jobs' 
                   + '?'
