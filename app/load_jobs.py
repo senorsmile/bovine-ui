@@ -165,8 +165,8 @@ def load_jobs(
                 },
             }
 
-            print("****** DEBUG: test_jobs = ")
-            print(json.dumps(test_jobs,indent=4))
+            ##print("****** DEBUG: test_jobs = ")
+            ##print(json.dumps(test_jobs,indent=4))
 
             #-----------------------
             # end of file loop
