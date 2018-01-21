@@ -2,7 +2,8 @@ from flask import request
 import os
 import json
 
-
+import mmap # for load_json_first_last
+import linecache # for load_json_first_last
 
 #def load_json_multiple(segments):
 #    '''
@@ -21,10 +22,7 @@ import json
 #        except ValueError:
 #            pass
 
-def load_json_from_file(
-      full_file_path,
-      lines=[],
-    ):
+def load_json_from_file(full_file_path):
 
     '''
     PURPOSE:
@@ -46,6 +44,43 @@ def load_json_from_file(
         data.append(json.loads(line))
 
     return data[:]
+
+def load_json_first_last(full_file_path):
+    '''
+    PURPOSE:
+        - Load first and last lines of json from file,
+        - parse the data
+        - return in a list
+    INPUTS:
+    OUTPUTS:
+    '''
+
+    #--------------
+    # first line
+    #--------------
+    first_line_raw = linecache.getline(full_file_path, 1)
+    first_line = json.loads(first_line_raw)
+
+    #--------------
+    # last line
+    #--------------
+    with open(full_file_path, 'r') as source:
+        mapping = mmap.mmap(source.fileno(), 0, prot=mmap.PROT_READ)
+
+    last_line = json.loads(
+        mapping[
+            # mmap.rfind(string[, start[, end]])
+            mapping.rfind(b'\n', 0, -1)+1:
+        ]
+    )
+
+    #--------------
+    # return
+    #--------------
+    return [
+      first_line, 
+      last_line,
+    ]
 
 def load_jobs(
     start_job_num,
@@ -148,8 +183,8 @@ def load_jobs(
             # load & parse all lines from file
             # NB: file MUST have one valid json per line
             full_file_path = log_file_path + filename
-            filedata = load_json_from_file(full_file_path)
-
+            #filedata = load_json_from_file(full_file_path)
+            filedata = load_json_first_last(full_file_path)
 
             for parsed_json in filedata:
                 if   parsed_json["type"] == 'ANSIBLE START':
