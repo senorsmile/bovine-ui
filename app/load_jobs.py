@@ -135,6 +135,8 @@ def load_jobs(
                     pass
                 elif parsed_json["type"] == 'TASK ITEM FAILED':
                     pass
+                elif parsed_json["type"] == 'TASK ITEM - HOST UNREACHABLE':
+                    pass
                 elif parsed_json["type"] == 'ALL PLAYS DONE':
                     #print("****** DEBUG: parsed_json = ")
                     #print(parsed_json)
