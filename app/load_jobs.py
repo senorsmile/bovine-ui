@@ -4,15 +4,48 @@ import json
 
 
 
-def load_json_multiple(segments):
-    chunk = ""
-    for segment in segments:
-        chunk += segment
-        try:
-            yield json.loads(chunk)
-            chunk = ""
-        except ValueError:
-            pass
+#def load_json_multiple(segments):
+#    '''
+#    INPUTS: 
+#        segments -> a file obj
+#    OUTPUTS:
+#        generator giving one dict parsed from json
+#    '''
+#
+#    chunk = ""
+#    for segment in segments:
+#        chunk += segment
+#        try:
+#            yield json.loads(chunk)
+#            chunk = ""
+#        except ValueError:
+#            pass
+
+def load_json_from_file(
+      full_file_path,
+      lines=[],
+    ):
+
+    '''
+    PURPOSE:
+        - Load all lines of json from file,
+        - parse the data as native python objects (i.e. dicts),
+        - and return a list containing all the data, one parsed
+          json object line per list item. 
+    INPUTS:
+        full_file_path -> str
+            contains filename and path to load json from
+    OUTPUTS:
+        data -> list of dicts
+            contains parsed data, one dict per list item
+    '''
+    
+    f = open(full_file_path,'r')
+    data = []
+    for line in f:
+        data.append(json.loads(line))
+
+    return data[:]
 
 def load_jobs(
     start_job_num,
@@ -111,12 +144,14 @@ def load_jobs(
             unreachable       = 0
             failed            = 0
 
-            # open file
-            full_file_path = log_file_path + filename
-            f = open(full_file_path,'r')
 
-            # load lines of file until we can parge a complete json structure
-            for parsed_json in load_json_multiple(f):
+            # load & parse all lines from file
+            # NB: file MUST have one valid json per line
+            full_file_path = log_file_path + filename
+            filedata = load_json_from_file(full_file_path)
+
+
+            for parsed_json in filedata:
                 if   parsed_json["type"] == 'ANSIBLE START':
                     start_time = parsed_json["contents"]["start_time"]
                 elif parsed_json["type"] == 'PLAY START':
