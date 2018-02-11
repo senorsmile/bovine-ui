@@ -133,7 +133,7 @@ def load_jobs(
     print("****** DEBUG: get_num_jobs? = " + str(get_num_jobs))
 
     if os.path.exists(log_file_path):
-        filenames = list(os.walk(log_file_path))[0][2]
+        filenames = sorted(list(os.walk(log_file_path))[0][2])
 
         test_jobs = {'jobs': {} }
 
