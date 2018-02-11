@@ -22,4 +22,4 @@ which pipenv || {
 #python app.py
 export FLASK_APP=app.py
 export FLASK_DEBUG=1
-flask run -p 5001
+pipenv run flask run -p 5001
