@@ -55,6 +55,14 @@ def jobs():
         stash = stash,
     )
 
+@app.route('/job_details', methods=['GET'])
+def job_details():
+    return render_template(
+        'job_details.html',
+        job_num = request.args.get('job_num', default=stash["default_start_job_num"], type=int),
+        stash=stash,
+    )
+
 #-------------------------
 # backend runner endpoints
 #-------------------------

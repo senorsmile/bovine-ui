@@ -154,7 +154,7 @@
                 console.log(i);
                 outtext += "<tr>" +
                     <!-- Job #  -->
-                    '<td>' + i + '</td>' + 
+                    '<td>' + '<a href="job_details?job_num=' + i + '">' + i + '</a>' + '</td>' + 
 
                     <!-- Nodes (limit)  -->
                     '<td>' + jsontext['jobs'][i]['nodes']      +  '</td>' + 
