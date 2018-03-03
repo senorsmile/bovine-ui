@@ -1,5 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-job details not yet implemented
+    <div class="container">
+      <h2>Job ### Details</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              Job #
+            </th>
+            <th>Nodes (limit)</th>
+            <th>Length</th>
+            <th>Started</th>
+            <th>Finished</th>
+            <th>Progress</th>
+            <th>Summary</th>
+          </tr>
+        </thead>
+        <tbody id="job_table">
+          <div id="debug">
+          </div>
+          <tr>
+            <td >
+              <a href="#">
+                fetching jobs... 
+              </a>
+            </td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <!--
+            <td>
+              <div class="text-xs-center" id="progress53">0%</div>
+                <progress class="progress" value="0" max="100" aria-describedby="progress53"></progress>
+              </div>
+              </div>
+            </td>
+            <td>
+              <p>
+            -->
+
+                <!-- badge-success green    -->
+                <!-- badge-warning yellow   -->
+                <!-- badge-danger  red      -->
+                <!-- badge-default grey     -->
+
+            <!--
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="OK" id="ok">                   0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="CHANGED" id="changed">         0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="UNREACHABLE" id="unreachable"> 0</span>
+                <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="FAILED" id="failed">           0</span>
+              </p>
+            </td>
+            -->
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
 {% endblock %}
