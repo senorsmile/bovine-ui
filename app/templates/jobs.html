@@ -153,18 +153,24 @@
                 i = String(j);
                 console.log(i);
                 outtext += "<tr>" +
+                    <!-- Job #  -->
                     '<td>' + i + '</td>' + 
 
+                    <!-- Nodes (limit)  -->
                     '<td>' + jsontext['jobs'][i]['nodes']      +  '</td>' + 
 
+                    <!-- Length  -->
                     '<td>' + jsontext['jobs'][i]['job_length'] +  '</td>' + 
 
+                    <!-- Started  -->
                     '<td>' + jsontext['jobs'][i]['started']    +  '</td>' + 
 
+                    <!-- Finished -->
                     '<td>' + 
                       jsontext['jobs'][i]['finished'] +    
                     '</td>' + 
 
+                    <!-- Progress -->
                     '<td>' + 
                       '<div class="text-xs-center" id="progress53">' + 
                         jsontext['jobs'][i]['job_percent'] + 
@@ -175,6 +181,7 @@
                       '</div>' +
                     '</td>' + 
 
+                    <!-- Summary -->
                     "<td>" +  
                       '<span class="badge badge-pill badge-success" data-toggle="tooltip" data-placement="top" title="OK">' + 
                           jsontext["jobs"][i]["summary"]["ok"] + 
