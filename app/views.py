@@ -7,7 +7,7 @@ import json
 # vars
 #-------------------------
 stash = {
-    'app_ver': '0.0.21',
+    'app_ver': '0.0.22',
     'default_start_job_num': -10,
     'default_end_job_num': -1, 
 }
