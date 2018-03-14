@@ -83,19 +83,19 @@
               if (end_job_num < 0) end_job_num = last_job_num + end_job_num + 1;
               if (start_job_num < 0) start_job_num = last_job_num + start_job_num + 1;
               if (start_job_num < 1) start_job_num = 1; // don't go lower than absolute first job
-              document.getElementById("debug").innerHTML =  ''
-                  + 'last_job_num = ' + last_job_num
-                  + '<br>'
-                  + 'start_job_num = ' + start_job_num
-                  + '<br>'
-                  + 'end_job_num = ' + end_job_num
-              ;
 
-              let url2 = 'api/get_jobs' 
-                  + '?'
-                  + 'start_job_num=' + start_job_num
-                  + '&'
-                  + 'end_job_num='   + end_job_num
+              document.getElementById("debug").innerHTML = `
+                last_job_num  = ${last_job_num}
+                <br>
+                start_job_num = ${start_job_num}
+                <br>
+                end_job_num   = ${end_job_num}
+              `;
+
+              let url2 = `api/get_jobs?`
+                + `start_job_num=${start_job_num}`
+                + `&`
+                + `end_job_num=${end_job_num}`
               ;
 
               return fetch(url2);
@@ -118,86 +118,55 @@
 
 
       function processlogs(jsontext) {
-              //document.getElementById("debug").innerHTML = 'DEBUG: ' + url2 + '<br>' + JSON.stringify(jsontext,null,2) // deleteme
-
               var outtext = '';
-
-
-              //lowest_job_num = last_job_num - {{ stash.jobs_per_screen }};
-              //if (lowest_job_num < 1) lowest_job_num = 1;
-
-              // temp debug display
-              //document.getElementById("jobs_table").innerHTML = 
-              //    'lowest_job_num = ' + lowest_job_num + '<br>' +
-              //    'last_job_num   = ' + last_job_num + '<br>';
-
-
-              //document.getElementById("debug").innerHTML =  ''
-              //    +'DEBUG: start_job_num orig = ' 
-              //    + {{ start_job_num }}
-              //    + '<br>' 
-              //    + 'DEBUG: end_job_num orig = ' 
-              //    + {{ end_job_num }}
-              //    + '<br>' 
-              //    +'DEBUG: start_job_num real = ' 
-              //    + start_job_num 
-              //    + '<br>' 
-              //    + 'DEBUG: end_job_num real = ' 
-              //    + end_job_num
-              //    + '<br>' 
-              //    + 'DEBUG: last_job_num = ' 
-              //    + last_job_num
-              //    ; // deleteme
 
               for (var j = end_job_num; j >= start_job_num; j--) {
                 i = String(j);
                 console.log(i);
-                outtext += "<tr>" +
+                outtext += `
+                  <tr>
                     <!-- Job #  -->
-                    '<td>' + '<a href="job_details?job_num=' + i + '">' + i + '</a>' + '</td>' + 
+                    <td><a href="job_details?job_num=${i}">${i}</a></td>
 
                     <!-- Nodes (limit)  -->
-                    '<td>' + jsontext['jobs'][i]['nodes']      +  '</td>' + 
+                    <td>${jsontext["jobs"][i]["nodes"]}</td> 
 
                     <!-- Length  -->
-                    '<td>' + jsontext['jobs'][i]['job_length'] +  '</td>' + 
+                    <td>${jsontext["jobs"][i]["job_length"]}</td> 
 
                     <!-- Started  -->
-                    '<td>' + jsontext['jobs'][i]['started']    +  '</td>' + 
+                    <td>${jsontext["jobs"][i]["started"]}</td> 
 
                     <!-- Finished -->
-                    '<td>' + 
-                      jsontext['jobs'][i]['finished'] +    
-                    '</td>' + 
+                    <td>${jsontext["jobs"][i]["finished"]}</td>
 
                     <!-- Progress -->
-                    '<td>' + 
-                      '<div class="text-xs-center" id="progress53">' + 
-                        jsontext['jobs'][i]['job_percent'] + 
-                      '%</div>' +
-                      '<progress class="progress" value="' + 
-                        jsontext['jobs'][i]['job_percent'] + 
-                      '" max="100" aria-describedby="progress53"></progress>' + 
-                      '</div>' +
-                    '</td>' + 
+                    <td>
+                      <div class="text-xs-center" id="progress53">
+                        ${jsontext['jobs'][i]['job_percent']} %
+                      </div>
+                      <progress class="progress" value="${jsontext['jobs'][i]['job_percent']}" 
+                      max="100" aria-describedby="progress53"></progress>
+                      </div>
+                    </td>
 
                     <!-- Summary -->
-                    "<td>" +  
-                      '<span class="badge badge-pill badge-success" data-toggle="tooltip" data-placement="top" title="OK">' + 
-                          jsontext["jobs"][i]["summary"]["ok"] + 
-                      '</span>' +
-                      '<span class="badge badge-pill badge-warning" data-toggle="tooltip"                      title="CHANGED">'      + 
-                          jsontext["jobs"][i]["summary"]["changed"]     + 
-                      '</span>' +
-                      '<span class="badge badge-pill badge-danger"  data-toggle="tooltip" data-placement="top" title="UNREACHABLE">'  + 
-                          jsontext["jobs"][i]["summary"]["unreachable"] + 
-                      '</span>' +
-                      '<span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="FAILED">'       + 
-                          jsontext["jobs"][i]["summary"]["failed"]      + 
-                      '</span>' +
-                    "</td>" + 
+                    <td>
+                      <span class="badge badge-pill badge-success" data-toggle="tooltip" data-placement="top" title="OK"> 
+                          ${jsontext["jobs"][i]["summary"]["ok"]}
+                      </span>
+                      <span class="badge badge-pill badge-warning" data-toggle="tooltip"                      title="CHANGED">
+                          ${jsontext["jobs"][i]["summary"]["changed"]}
+                      </span>
+                      <span class="badge badge-pill badge-danger"  data-toggle="tooltip" data-placement="top" title="UNREACHABLE">
+                          ${jsontext["jobs"][i]["summary"]["unreachable"]}
+                      </span>
+                      <span class="badge badge-pill badge-default" data-toggle="tooltip" data-placement="top" title="FAILED">
+                          ${jsontext["jobs"][i]["summary"]["failed"]}
+                      </span>
+                    </td>
 
-                  "</tr>";
+                  </tr>`;
 
               }
 
