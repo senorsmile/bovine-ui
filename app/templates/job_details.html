@@ -5,18 +5,15 @@
     <div class="container">
       <h2>
         <div id="app">
-        Job ${ message } Details
+        Job # ${ job_number } Details
         </div>
       </h2>
 
       <table class="table">
         <thead>
           <tr>
-            <th>
-              Job #
-            </th>
-            <th>Nodes (limit)</th>
-            <th>Length</th>
+            <th>Play</th>
+            <th>Task</th>
             <th>Started</th>
             <th>Finished</th>
             <th>Progress</th>
@@ -73,7 +70,15 @@
       delimiters:['${', '}'],
       el: '#app',
       data: {
-        message: 'Hello Vue.js!'
+        job_number: {{ job_num }}
+      }
+    })
+
+    new Vue({
+      delimiters:['${', '}'],
+      el: '#job_table',
+      data: {
+        job_number: {{ job_num }}
       }
     })
   </script>

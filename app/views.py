@@ -51,8 +51,8 @@ def jobs():
     return render_template(
         'jobs.html',
         start_job_num = request.args.get('start_job_num', default=stash["default_start_job_num"], type=int),
-        end_job_num   = request.args.get('end_job_num',   default=stash["default_end_job_num"], type=int),
-        stash = stash,
+        end_job_num   = request.args.get('end_job_num',   default=stash["default_end_job_num"],   type=int),
+        stash         = stash,
     )
 
 @app.route('/job_details', methods=['GET'])
@@ -60,7 +60,7 @@ def job_details():
     return render_template(
         'job_details.html',
         job_num = request.args.get('job_num', default=stash["default_start_job_num"], type=int),
-        stash=stash,
+        stash   = stash,
     )
 
 #-------------------------
@@ -82,6 +82,15 @@ def get_jobs():
             start_job_num = request.args.get('start_job_num', default=stash["default_start_job_num"],    type=int),
             end_job_num   = request.args.get('end_job_num',   default=stash["default_end_job_num"],    type=int),
             get_num_jobs  = request.args.get('get_num_jobs',   default = False, type=bool),
+        ),
+        indent=4,
+    )
+
+@app.route('/api/get_job')
+def get_job():
+    return json.dumps(
+        load_jobs.load_job(
+            job_num = request.args.get('job_num', default='1', type=int),
         ),
         indent=4,
     )

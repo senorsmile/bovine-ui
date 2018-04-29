@@ -305,3 +305,21 @@ def load_jobs(
         'jobs': jobs_limited['jobs'],
         'last_job_num': last_job_num,
     }
+
+
+def load_job(
+    job_num,
+):
+    '''
+    Input: num 
+        - job number to load
+
+    Output: a dict of all lines from the requested job
+    '''
+
+    log_file_path = os.path.expanduser('~') + '/.ansible/bovine/'
+    
+    full_file_path = log_file_path + filename
+
+    if os.path.exists(full_file_path):
+        filedata = load_json_from_file(full_file_path)
